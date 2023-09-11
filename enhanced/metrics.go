@@ -336,8 +336,14 @@ func makeNodeFilesystemMetrics(s *fileSys, constLabels prometheus.Labels) []prom
 func makeNodeLoadMetrics(s *loadAverageMinute, constLabels prometheus.Labels) []prometheus.Metric {
 	desc := prometheus.NewDesc("node_load1", "The number of processes requesting CPU time over the last minute.", nil, constLabels)
 	m := prometheus.MustNewConstMetric(desc, prometheus.GaugeValue, s.One)
-	return []prometheus.Metric{m}
+	desc5 := prometheus.NewDesc("node_load5", "The number of processes requesting CPU time over the 5  minute.", nil, constLabels)
+	m5 := prometheus.MustNewConstMetric(desc5, prometheus.GaugeValue, s.Five)
+	desc15 := prometheus.NewDesc("node_load15", "The number of processes requesting CPU time over the 15 minute.", nil, constLabels)
+	m15 := prometheus.MustNewConstMetric(desc15, prometheus.GaugeValue, s.Fifteen)
+	return []prometheus.Metric{m,m5,m15}
 }
+
+
 
 // makeNodeMemoryMetrics returns node_exporter-like node_memory_ metrics.
 func makeNodeMemoryMetrics(s *memory, constLabels prometheus.Labels) []prometheus.Metric {
